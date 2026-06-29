@@ -1,0 +1,1235 @@
+﻿<!DOCTYPE html>
+<html lang="th" data-theme="warm">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KSA Competency Explorer (CBE)</title>
+  <!-- Google Fonts for premium Thai & English typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Theme 1: Warm (Default) */
+      --bg: #faf7f2;
+      --surface: #ffffff;
+      --surface-hover: #fcfbfa;
+      --surface-active: #f7ede2;
+      --text: #3c332a;
+      --text-muted: #7d7063;
+      --border: #e6dfd5;
+      --primary: #c86b45;
+      --primary-hover: #b05c38;
+      --primary-light: #fdf5f0;
+      --accent: #3a8b81;
+      --accent-light: #f0f8f7;
+      --shadow: 0 10px 30px rgba(85, 68, 51, 0.06), 0 1px 3px rgba(85, 68, 51, 0.02);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --font-scale: 1;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Level Theme Defaults (Primary) */
+      --card-header-bg: #fbf3ee;
+      --comp-body-bg: #fefcfb;
+      --ksa-col-bg: #ffffff;
+    }
+
+    /* Level theme overrides for default (Warm) theme */
+    body.level-primary {
+      --bg: #faf7f2;
+      --surface-hover: #fcfbfa;
+      --primary: #c86b45;
+      --primary-hover: #b05c38;
+      --primary-light: #fdf5f0;
+      --card-header-bg: #fbf3ee;
+      --comp-body-bg: #fefcfb;
+      --ksa-col-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(85, 68, 51, 0.06), 0 1px 3px rgba(85, 68, 51, 0.02);
+    }
+
+    body.level-secondary {
+      --bg: #eef7f6;
+      --surface-hover: #f5fbfb;
+      --primary: #3a8b81;
+      --primary-hover: #2d736a;
+      --primary-light: #e6f3f2;
+      --card-header-bg: #e1f0ee;
+      --comp-body-bg: #f4faf9;
+      --ksa-col-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(58, 139, 129, 0.06), 0 1px 3px rgba(58, 139, 129, 0.02);
+    }
+
+    [data-theme="bright"] {
+      /* Theme 2: Bright */
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-hover: #f1f5f9;
+      --surface-active: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --accent: #0d9488;
+      --accent-light: #f0fdfa;
+      --shadow: 0 10px 30px rgba(37, 99, 235, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+      
+      --card-header-bg: #f1f5f9;
+      --comp-body-bg: #f8fafc;
+      --ksa-col-bg: #ffffff;
+    }
+
+    /* Level theme overrides for Bright theme */
+    [data-theme="bright"].level-primary, body[data-theme="bright"].level-primary {
+      --bg: #f8fafc;
+      --surface-hover: #f1f5f9;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --card-header-bg: #f1f5f9;
+      --comp-body-bg: #f8fafc;
+      --ksa-col-bg: #ffffff;
+    }
+
+    [data-theme="bright"].level-secondary, body[data-theme="bright"].level-secondary {
+      --bg: #f0fdfa;
+      --surface-hover: #f0fdfa;
+      --primary: #0d9488;
+      --primary-hover: #0f766e;
+      --primary-light: #ccfbf1;
+      --card-header-bg: #e6f4f1;
+      --comp-body-bg: #f0fdfa;
+      --ksa-col-bg: #ffffff;
+      --shadow: 0 10px 30px rgba(13, 148, 136, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="dark"] {
+      /* Theme 3: Dark */
+      --bg: #0f1216;
+      --surface: #171c24;
+      --surface-hover: #1f2631;
+      --surface-active: #2a3342;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #2d3748;
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --primary-light: #2b2210;
+      --accent: #14b8a6;
+      --accent-light: #0c2b29;
+      --shadow: 0 12px 36px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+
+      --card-header-bg: #1e1a14;
+      --comp-body-bg: #14120f;
+      --ksa-col-bg: #1d232e;
+    }
+
+    /* Level theme overrides for Dark theme */
+    [data-theme="dark"].level-primary, body[data-theme="dark"].level-primary {
+      --bg: #0f1216;
+      --surface-hover: #1f2631;
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --primary-light: #2b2210;
+      --card-header-bg: #1e1a14;
+      --comp-body-bg: #14120f;
+      --ksa-col-bg: #1d232e;
+    }
+
+    [data-theme="dark"].level-secondary, body[data-theme="dark"].level-secondary {
+      --bg: #0b0f0f;
+      --surface-hover: #141f1f;
+      --primary: #14b8a6;
+      --primary-hover: #0d9488;
+      --primary-light: #082422;
+      --card-header-bg: #111b1b;
+      --comp-body-bg: #0b0f0f;
+      --ksa-col-bg: #152222;
+      --shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans Thai', 'Inter', sans-serif;
+      font-size: calc(16px * var(--font-scale));
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: var(--transition);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Container layout */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Navigation bar */
+    .header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+      transition: var(--transition);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: calc(1.25rem * var(--font-scale));
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-subtitle {
+      font-size: calc(0.85rem * var(--font-scale));
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    /* Toolbar Controls */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    .control-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-size: calc(0.85rem * var(--font-scale));
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: calc(var(--radius-sm) - 2px);
+      transition: var(--transition);
+    }
+
+    .control-btn.active {
+      background-color: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .refresh-btn {
+      background-color: var(--primary-light);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .refresh-btn:hover {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .refresh-btn.loading svg {
+      animation: rotate 1s linear infinite;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Main Content Area */
+    .main {
+      flex: 1;
+      padding: 32px 0 60px;
+    }
+
+    /* Hero search section */
+    .hero-search {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-search h1 {
+      font-size: calc(2.2rem * var(--font-scale));
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-search p {
+      color: var(--text-muted);
+      font-size: calc(1.05rem * var(--font-scale));
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search-wrapper {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+    }
+
+    .search-input {
+      width: 100%;
+      height: 60px;
+      padding: 0 60px 0 24px;
+      border: 2px solid transparent;
+      background-color: var(--surface);
+      border-radius: var(--radius-lg);
+      font-size: calc(1.05rem * var(--font-scale));
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon-btn {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .search-icon-btn:hover {
+      background-color: var(--bg);
+      color: var(--primary);
+    }
+
+    /* Tabs for Primary/Secondary */
+    .tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .tab-item {
+      background: none;
+      border: none;
+      padding: 16px 32px;
+      font-size: calc(1.1rem * var(--font-scale));
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-item:hover {
+      color: var(--text);
+    }
+
+    .tab-item.active {
+      color: var(--primary);
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 3px 3px 0 0;
+    }
+
+    /* Live connection banner */
+    .status-banner {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      font-size: calc(0.9rem * var(--font-scale));
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      position: relative;
+    }
+
+    .status-indicator.live::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: var(--accent);
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    .status-indicator.fallback {
+      background-color: #f59e0b;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+
+    .status-title {
+      font-weight: 600;
+    }
+
+    .status-time {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Cards Grid */
+    .competency-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .competency-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .comp-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comp-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 16px 40px rgba(85, 68, 51, 0.1);
+    }
+
+    .comp-header {
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background-color: var(--card-header-bg);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .comp-card:hover .comp-header {
+      background-color: var(--primary-light);
+    }
+
+    .comp-badge {
+      background-color: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: calc(0.95rem * var(--font-scale));
+      padding: 6px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(200, 107, 69, 0.2);
+    }
+
+    .comp-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comp-name {
+      font-size: calc(1.15rem * var(--font-scale));
+      font-weight: 800;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .comp-subtitle {
+      font-size: calc(0.85rem * var(--font-scale));
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .comp-preview {
+      padding: 20px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .preview-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: calc(0.85rem * var(--font-scale));
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .preview-circle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .comp-body {
+      display: none;
+      padding: 24px;
+      border-top: 1px dashed var(--border);
+      background-color: var(--comp-body-bg);
+      animation: slideDown 0.3s ease;
+    }
+
+    .comp-card.expanded {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 768px) {
+      .comp-card.expanded {
+        grid-column: span 1;
+      }
+    }
+
+    .comp-card.expanded .comp-body {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KSA Dimensions styling inside body */
+    .ksa-container {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .ksa-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ksa-column {
+      background-color: var(--ksa-col-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .ksa-col-title {
+      font-size: calc(1.05rem * var(--font-scale));
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .ksa-intro {
+      font-size: calc(0.85rem * var(--font-scale));
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .ksa-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .ksa-item {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+    }
+
+    .ksa-item-title {
+      font-size: calc(0.9rem * var(--font-scale));
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .ksa-item-detail {
+      font-size: calc(0.85rem * var(--font-scale));
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Sub-bullets (lists within list items) */
+    .ksa-sublist {
+      margin-top: 8px;
+      padding-left: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      list-style: none;
+      border-left: 2.5px solid var(--primary);
+    }
+
+    .ksa-subitem {
+      font-size: calc(0.82rem * var(--font-scale));
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .ksa-subitem::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    /* Search highlight */
+    mark.highlight {
+      background-color: #fef08a;
+      color: #000000;
+      padding: 1px 3px;
+      border-radius: 2px;
+      font-weight: 700;
+    }
+
+    /* Search status feedback */
+    .search-feedback {
+      background-color: var(--accent-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--accent);
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      font-weight: 600;
+      text-align: center;
+      display: none;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: calc(0.85rem * var(--font-scale));
+      font-weight: 500;
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: rotate 0.8s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: calc(1.1rem * var(--font-scale));
+    }
+  </style>
+</head>
+<body class="level-primary">
+
+  <!-- Loading overlay -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="spinner"></div>
+    <div class="loading-text">กำลังโหลดกรอบสมรรถนะ KSA...</div>
+  </div>
+
+  <!-- Header top navigation -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-title">
+          <span>🇹🇭</span> KSA Competency Explorer
+        </div>
+        <div class="brand-subtitle">หลักสูตรฐานสมรรถนะ (Competency-Based Education)</div>
+      </div>
+      
+      <div class="controls">
+        <!-- Font sizing control -->
+        <div class="control-group">
+          <button class="control-btn" onclick="setFontScale(0.9, this)">ก-</button>
+          <button class="control-btn active" onclick="setFontScale(1.0, this)">ก</button>
+          <button class="control-btn" onclick="setFontScale(1.15, this)">ก+</button>
+        </div>
+
+        <!-- Theme selection control -->
+        <div class="control-group">
+          <button id="themeBtnWarm" class="control-btn active" onclick="setTheme('warm')">อบอุ่น</button>
+          <button id="themeBtnBright" class="control-btn" onclick="setTheme('bright')">สว่าง</button>
+          <button id="themeBtnDark" class="control-btn" onclick="setTheme('dark')">มืด</button>
+        </div>
+
+        <!-- Refresh button -->
+        <button id="refreshBtn" class="refresh-btn" onclick="refreshData()" title="ดึงข้อมูลล่าสุดจาก Google Doc">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main section -->
+  <main class="main">
+    <div class="container">
+      
+      <!-- Hero search bar -->
+      <section class="hero-search">
+        <h1>กรอบสมรรถนะการศึกษาขั้นพื้นฐาน</h1>
+        <p>เครื่องมือวิเคราะห์และสืบค้นความรู้ ทักษะ เจตคติ (KSA) ออกแบบเป็นพิเศษสำหรับครูผู้สอนเพื่อเตรียมแผนการสอน</p>
+        
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" class="search-input" placeholder="พิมพ์คำสำคัญเพื่อสืบค้น KSA (เช่น ดิจิทัล, ทำงานเป็นทีม, วิเคราะห์)..." oninput="handleSearch()">
+          <button class="search-icon-btn" onclick="clearSearch()" id="clearBtn">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Level Tabs Selector -->
+      <div class="tabs-wrapper">
+        <button class="tab-item active" onclick="switchLevel(0, this)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ระดับชั้นประถมศึกษา
+        </button>
+        <button class="tab-item" onclick="switchLevel(1, this)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ระดับชั้นมัธยมศึกษา
+        </button>
+      </div>
+
+      <!-- Live status details banner -->
+      <div class="status-banner" id="statusBanner">
+        <div class="status-left">
+          <div class="status-indicator live" id="statusIndicator"></div>
+          <div>
+            <span class="status-title" id="statusTitle">เชื่อมต่อข้อมูลแบบสด</span>
+            <span class="status-time" id="statusTime"></span>
+          </div>
+        </div>
+        <div style="font-weight: 500; color: var(--primary);" id="docInfo"></div>
+      </div>
+
+      <!-- Live search status notification -->
+      <div id="searchFeedback" class="search-feedback"></div>
+
+      <!-- Main competencies grid container -->
+      <div class="competency-grid" id="competencyGrid">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Page Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 KSA Competency Explorer (CBE) • พัฒนาสำหรับครูผู้สอนเพื่อขับเคลื่อนหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน</p>
+      <p style="margin-top: 8px; font-size: 0.8rem;">แหล่งข้อมูล: <a href="https://docs.google.com/document/d/1FfY4IoxwDv37dL9-k7PwJu81pEuPJWXAVOpXE-Oib3w/edit" target="_blank">ลิงก์ Google เอกสารต้นฉบับ</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // State variables
+    let appData = null;
+    let selectedLevelIndex = 0; // 0 for Primary, 1 for Secondary
+    let searchTerm = "";
+    
+    // Page load initialization
+    window.addEventListener('load', () => {
+      document.body.className = "level-primary";
+      loadData(false);
+    });
+
+    // Load data from Google Apps Script server backend
+    function loadData(forceRefresh) {
+      document.getElementById('loadingScreen').style.display = 'flex';
+      
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(data => {
+            appData = data;
+            renderUI();
+            document.getElementById('loadingScreen').style.display = 'none';
+          })
+          .withFailureHandler(err => {
+            console.error(err);
+            showError("เกิดข้อผิดพลาดในการโหลดข้อมูล: " + err.message);
+            document.getElementById('loadingScreen').style.display = 'none';
+          })
+          .getAppData(forceRefresh);
+      } else {
+        // Fallback mock data for local browser testing
+        console.warn("Running in local mock mode");
+        setTimeout(() => {
+          appData = getMockData();
+          renderUI();
+          document.getElementById('loadingScreen').style.display = 'none';
+        }, 800);
+      }
+    }
+
+    // Refresh button action
+    function refreshData() {
+      const btn = document.getElementById('refreshBtn');
+      btn.classList.add('loading');
+      btn.disabled = true;
+      
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(data => {
+            appData = data;
+            renderUI();
+            btn.classList.remove('loading');
+            btn.disabled = false;
+          })
+          .withFailureHandler(err => {
+            console.error(err);
+            alert("ดึงข้อมูลใหม่ล้มเหลว: " + err.message);
+            btn.classList.remove('loading');
+            btn.disabled = false;
+          })
+          .getAppData(true);
+      } else {
+        setTimeout(() => {
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          alert("จำลองการดึงข้อมูลสดสำเร็จ!");
+        }, 1000);
+      }
+    }
+
+    // Switch between Primary and Secondary tabs
+    function switchLevel(index, element) {
+      selectedLevelIndex = index;
+      
+      // Update body class for level theme
+      if (index === 0) {
+        document.body.className = "level-primary";
+      } else {
+        document.body.className = "level-secondary";
+      }
+      
+      // Update tabs UI
+      const tabs = document.querySelectorAll('.tab-item');
+      tabs.forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      
+      // Render
+      renderUI();
+      
+      // Keep search active if any
+      if (searchTerm) {
+        handleSearch();
+      }
+    }
+
+    // Adjust theme settings
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      
+      // Update theme control buttons
+      const buttons = document.querySelectorAll('[id^="themeBtn"]');
+      buttons.forEach(b => b.classList.remove('active'));
+      
+      if (theme === 'warm') document.getElementById('themeBtnWarm').classList.add('active');
+      else if (theme === 'bright') document.getElementById('themeBtnBright').classList.add('active');
+      else if (theme === 'dark') document.getElementById('themeBtnDark').classList.add('active');
+    }
+
+    // Adjust font size scaling
+    function setFontScale(scale, element) {
+      document.documentElement.style.setProperty('--font-scale', scale);
+      
+      // Update font scale buttons
+      const buttons = element.parentNode.querySelectorAll('.control-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // Render app UI elements
+    function renderUI() {
+      if (!appData || !appData.levels || appData.levels.length === 0) return;
+      
+      // Status banner update
+      const source = appData.source || {};
+      const statusTitle = document.getElementById('statusTitle');
+      const statusIndicator = document.getElementById('statusIndicator');
+      const statusTime = document.getElementById('statusTime');
+      const docInfo = document.getElementById('docInfo');
+      
+      if (source.live) {
+        statusIndicator.className = "status-indicator live";
+        statusTitle.textContent = "เชื่อมต่อข้อมูล Google Doc แบบสด";
+      } else {
+        statusIndicator.className = "status-indicator fallback";
+        statusTitle.textContent = "โหมดสำรอง (เกิดข้อผิดพลาดในการโหลดสด)";
+      }
+      
+      if (source.refreshedAt) {
+        const d = new Date(source.refreshedAt);
+        statusTime.textContent = `อัปเดตเมื่อ: ${d.toLocaleDateString('th-TH')} ${d.toLocaleTimeString('th-TH')}`;
+      }
+      docInfo.textContent = "ID เอกสาร: " + (source.documentId ? source.documentId.substring(0, 8) + "..." : "สำรอง");
+
+      // Render cards
+      const level = appData.levels[selectedLevelIndex] || appData.levels[0];
+      const grid = document.getElementById('competencyGrid');
+      grid.innerHTML = '';
+      
+      level.competencies.forEach((comp, idx) => {
+        // Find counts
+        let kCount = 0, sCount = 0, aCount = 0;
+        comp.groups.forEach(g => {
+          const lbl = (g.label || '').toLowerCase();
+          const title = (g.title || '').toLowerCase();
+          const count = (g.items || []).length;
+          
+          if (lbl === 'knowledge' || title.indexOf('knowledge') > -1 || title.indexOf('ความรู้') > -1) {
+            kCount = count;
+          } else if (lbl === 'skills' || title.indexOf('skills') > -1 || title.indexOf('ทักษะ') > -1) {
+            sCount = count;
+          } else if (lbl === 'attitudes' || title.indexOf('attitudes') > -1 || title.indexOf('เจตคติ') > -1 || title.indexOf('เฌตคติ') > -1) {
+            aCount = count;
+          }
+        });
+
+        // Abbr helper
+        let abbr = comp.id ? comp.id.toUpperCase() : "SLNS";
+        
+        // Competency card HTML
+        const card = document.createElement('div');
+        card.className = 'comp-card';
+        card.id = `card-${comp.id}`;
+        card.onclick = (e) => toggleCardExpansion(comp.id, e);
+        
+        let groupsHtml = '';
+        comp.groups.forEach(group => {
+          let itemsHtml = '';
+          group.items.forEach(item => {
+            let subitemsHtml = '';
+            if (item.subitems && item.subitems.length > 0) {
+              subitemsHtml = `<ul class="ksa-sublist">`;
+              item.subitems.forEach(sub => {
+                subitemsHtml += `<li class="ksa-subitem">${highlightText(sub)}</li>`;
+              });
+              subitemsHtml += `</ul>`;
+            }
+            
+            itemsHtml += `
+              <li class="ksa-item">
+                <div class="ksa-item-title">${highlightText(item.title)}</div>
+                ${item.detail ? `<div class="ksa-item-detail">${highlightText(item.detail)}</div>` : ''}
+                ${subitemsHtml}
+              </li>
+            `;
+          });
+
+          groupsHtml += `
+            <div class="ksa-column">
+              <div class="ksa-col-title">${group.title}</div>
+              ${group.intro ? `<div class="ksa-intro">${highlightText(group.intro)}</div>` : ''}
+              <ul class="ksa-list">
+                ${itemsHtml}
+              </ul>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="comp-header">
+            <div class="comp-badge">${abbr}</div>
+            <div class="comp-title-group">
+              <div class="comp-name">${highlightText(comp.name)}</div>
+              <div class="comp-subtitle">${abbr === 'SLNS' ? 'Sustainable Coexistence with Nature and Science' : (abbr === 'AC' ? 'Active Citizen' : (abbr === 'TC' ? 'Teamwork and Collaboration' : (abbr === 'CM' ? 'Communication' : (abbr === 'HOT' ? 'Higher Order Thinking' : 'Self-Management'))))}</div>
+            </div>
+          </div>
+          <div class="comp-preview" id="preview-${comp.id}">
+            <div class="preview-row"><span class="preview-circle" style="background-color: var(--primary);"></span> ความรู้ (Knowledge): ${kCount} รายการ</div>
+            <div class="preview-row"><span class="preview-circle" style="background-color: var(--accent);"></span> ทักษะ (Skills): ${sCount} รายการ</div>
+            <div class="preview-row"><span class="preview-circle" style="background-color: #f59e0b;"></span> เจตคติ & คุณลักษณะ (Attitudes): ${aCount} รายการ</div>
+          </div>
+          <div class="comp-body">
+            <div class="ksa-container">
+              ${groupsHtml}
+            </div>
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    }
+
+    // Toggle card expand/collapse accordions
+    function toggleCardExpansion(id, event) {
+      // Prevent recursion if clicking inside expanded body items
+      if (event.target.closest('.comp-body')) {
+        return;
+      }
+      
+      const card = document.getElementById(`card-${id}`);
+      const preview = document.getElementById(`preview-${id}`);
+      const isExpanded = card.classList.contains('expanded');
+      
+      // Close other cards first to maintain layout cleanliness
+      if (!isExpanded) {
+        const cards = document.querySelectorAll('.comp-card');
+        cards.forEach(c => {
+          c.classList.remove('expanded');
+          const p = c.querySelector('.comp-preview');
+          if (p) p.style.display = 'flex';
+        });
+        
+        card.classList.add('expanded');
+        if (preview) preview.style.display = 'none';
+        
+        // Scroll to card
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 150);
+      } else {
+        card.classList.remove('expanded');
+        if (preview) preview.style.display = 'flex';
+      }
+    }
+
+    // Highlight searched terms in HTML content
+    function highlightText(text) {
+      if (!searchTerm || !text) return text;
+      
+      // Regex replace to add marking class
+      const escapedSearch = searchTerm.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const regex = new RegExp(`(${escapedSearch})`, 'gi');
+      return text.replace(regex, '<mark class="highlight">$1</mark>');
+    }
+
+    // Handle interactive search functionality
+    function handleSearch() {
+      const input = document.getElementById('searchInput');
+      searchTerm = input.value.trim();
+      
+      const clearBtn = document.getElementById('clearBtn');
+      if (searchTerm) {
+        clearBtn.innerHTML = `
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+        clearBtn.onclick = clearSearch;
+      } else {
+        clearBtn.innerHTML = `
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+        clearBtn.onclick = null;
+      }
+
+      renderUI(); // Re-render first to update highlight matches
+      
+      if (!searchTerm) {
+        document.getElementById('searchFeedback').style.display = 'none';
+        return;
+      }
+      
+      // Expand matching cards and hide non-matching ones
+      const cards = document.querySelectorAll('.comp-card');
+      let visibleCount = 0;
+      
+      cards.forEach(card => {
+        const textContent = card.textContent.toLowerCase();
+        const hasMatch = textContent.includes(searchTerm.toLowerCase());
+        
+        if (hasMatch) {
+          card.style.display = 'flex';
+          card.classList.add('expanded');
+          const preview = card.querySelector('.comp-preview');
+          if (preview) preview.style.display = 'none';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Update search feedback banner
+      const feedback = document.getElementById('searchFeedback');
+      feedback.style.display = 'block';
+      feedback.innerHTML = `ค้นพบผลลัพธ์ที่ตรงกับคำสำคัญ "${searchTerm}" ทั้งหมด <strong>${visibleCount}</strong> สมรรถนะ`;
+    }
+
+    // Reset search query
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      searchTerm = '';
+      
+      const clearBtn = document.getElementById('clearBtn');
+      clearBtn.innerHTML = `
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+      clearBtn.onclick = null;
+      
+      document.getElementById('searchFeedback').style.display = 'none';
+      renderUI();
+    }
+
+    // Display error message
+    function showError(msg) {
+      const grid = document.getElementById('competencyGrid');
+      grid.innerHTML = `
+        <div style="grid-column: span 2; background-color: #fee2e2; border: 1px solid #fca5a5; color: #b91c1c; padding: 24px; border-radius: var(--radius-lg); text-align: center; font-weight: 600;">
+          ${msg}
+        </div>
+      `;
+    }
+
+    // Mock data for local standalone browser previewing
+    function getMockData() {
+      var data = {"title":"การวิเคลาะห์ KSA ฌำแนกตามสมรรถนะ 6 ด้าน","levels":[{"name":"ระดับชั้นประถมศึกษา","competencies":[{"id":"slns","name":"สมรรถนะการอยู่ร่วมกับธรรมชาติ และวิทยาการอย่างยั่งยืน (Sustainable Coexistence with Nature and Science: SLNS)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"เด็กระดับประถมศึกษาตามกรอบนี้ จะต้องมีความรู้ในเรื่องต่อไปนี้เพื่อใช้ในการดำรงชีวิต:","items":[{"title":"1.1 ความรู้พื้นฐานด้านคณิตศาสตร์ วิทยาศาสตร์ และระบบธรรมชาติใกล้ตัว","detail":"ความรู้เกี่ยวกับข้อเท็จจริง และความสัมพันธ์ของสิ่งรอบตัวที่เชื่อมโยงกับตนเอง รวมถึงความสัมพันธ์ของหลักฐานเพื่ออธิบายสาเหตุของสถานการณ์ใกล้ตัวหรือระบบธรรมชาติและสิ่งแวดล้อมใกล้ตัว","subitems":[]},{"title":"1.2 ความรู้เท่าทันดิจิทัลและความปลอดภัยทางไซเบอร์ (Digital Use & Safety)","detail":"ความรู้เกี่ยวกับข้อตกลงและวิธีการใช้งานคอมพิวเตอร์ แท็บเล็ต หรือเทคโนโลยีดิจิทัลอย่างถูกต้องและปลอดภัย การรู้จักข้อมูลส่วนตัว วิธีการปกป้องข้อมูลส่วนตัว รวมถึงความรู้ในการแยกแยะความจริงของชีวิตและธรรมชาติออกจากโลกของเกมและสื่อดิจิทัล","subitems":[]},{"title":"1.3 ความรู้เรื่องประโยชน์และโทษของสื่อและทรัพยากร","detail":"ความรู้เกี่ยวกับประโยชน์และโทษของสื่อที่มีต่อตนเองทั้งในระยะสั้น และความรู้ในการจัดการทรัพยากรรอบตัวผ่านแนวคิดการนำกลับมาใช้ซ้ำ (Reuse) หรือลดการใช้ (Reduce)","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"ทักษะหรือกระบวนการที่เด็กประถมต้องแสดงออกในสถานการณ์ต่างๆ มี 3 กลุ่มหลักครับ:","items":[{"title":"2.1 ทักษะการสืบเสาะและการจัดการข้อมูล (Inquiry & Data Skills)","detail":"","subitems":["ทักษะการสังเกต การซักถาม และการตั้งคำถามโดยมีสมมติฐานถึงสาเหตุของปรากฏการณ์อย่างง่าย","ทักษะการเก็บรวบรวม บันทึกข้อมูล และการเลือกใช้เครื่องมืออย่างง่าย","ทักษะการจัดการและสื่อความหมายข้อมูล เช่น การจำแนกความเหมือน/แตกต่าง การเลือกรูปแบบนำเสนอข้อมูล (รูปภาพ, สัญลักษณ์, แผนภาพ, ตาราง, แผนภูมิ) และทักษะการอ่านข้อมูลลงข้อสรุป"]},{"title":"2.2 ทักษะการแก้ปัญหาและการประยุกต์ใช้เทคโนโลยี (Problem Solving & Tech Application)","detail":"","subitems":["ทักษะการทำกิจกรรม กิจวัตรประจำวัน และการออกแบบแนวทางลงมือแก้ปัญหาจากสถานการณ์ใกล้ตัวหรือสิ่งแวดล้อมโดยใช้ความรู้คณิตศาสตร์ วิทยาศาสตร์ และเทคโนโลยี","ทักษะการสร้างของเล่น ชิ้นงาน หรือเครื่องมือเพื่อขยายความสามารถของตนเองในการเล่น การทำงาน และแก้ปัญหาในชีวิตประจำวัน","ทักษะการใช้เทคโนโลยีดิจิทัลเพื่อการเรียนรู้ สืบค้นข้อมูล และสื่อสาร"]},{"title":"2.3 ทักษะการประเมินความน่าเชื่อถือ","detail":"ทักษะการประเมินความน่าเชื่อถือและความสมเหตุสมผลของข้อสรุปจากหลักฐานที่รวบรวมได้ รวมถึงทักษะการประเมินและป้องกันความเสี่ยงจากการระรานทางไซเบอร์ (Cyberbullying Management)","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"คุณลักษณะจิตวิทยาศาสตร์และคณิตศาสตร์ รวมถึงจิตสำนึกทางสิ่งแวดล้อมที่เด็กประถมต้องมี:","items":[{"title":"3.1 คุณลักษณะทางวิทยาศาสตร์และคณิตศาสตร์พื้นฐาน","detail":"ความช่างสงสัย มีจินตนาการ และความกระตือรือร้นในการใฝ่หาความรู้ ความพยายามหาสาเหตุของปรากฏการณ์ต่าง ๆ หรือแก้ปัญหา มีฉันทะฝักใฝ่ในการค้นคว้าหาความรู้ที่ตนเองสนใจ และการเก็บรวบรวมข้อมูลอย่างซื่อสัตย์จากความเป็นจริง","subitems":[]},{"title":"3.2 การเปิดใจและเชื่อมั่นในเหตุ","detail":"ล: การยอมรับและเชื่อมั่นในคำอธิบายที่มีเหตุผลจากหลักฐานที่รวบรวมได้ มีวัตถุวิสัยในการใช้เหตุผลและความสัมพันธ์ของข้อมูลในการสร้างพฤติกรรมที่ไม่ก่อให้เกิดปัญหา","subitems":[]},{"title":"3.3 จิตสำนึกการอยู่ร่วมกับธรรมชาติอย่างยั่งยืน","detail":"การมีส่วนร่วมในการดูแลใส่ใจสิ่งแวดล้อมรอบตัว ในบริเวณบ้าน โรงเรียน หรือชุมชน การใช้สิ่งของอย่างประหยัด ใส่ใจ และรู้คุณค่า รวมถึงการมีจิตสำนึกที่จะไม่เป็นส่วนหนึ่งที่ทำให้เกิดความเสียหายหรือการเปลี่ยนแปลงที่ส่งผลกระทบต่อธรรมชาติและสิ่งแวดล้อม ________________","subitems":[]}]}]},{"id":"ac","name":"สมรรถนะการเป็นพลเมืองที่เข้มแข็ง (Active Citizen: AC)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"นักเรียนระดับประถมศึกษาจะต้องมีความรู้พื้นฐานทางสังคมและกติกาต่างๆ ดังนี้:","items":[{"title":"1.1 ความรู้เกี่ยวกับกฎ ระเบียบ และกติกาทางสังคมใกล้ตัว","detail":"ความเข้าใจในระเบียบ กฎ กติกา ข้อตกลงของครอบครัว ชั้นเรียน และโรงเรียน ตลอดจนแนวทางการปฏิบัติตนตามวิถีวัฒนธรรมของชุมชนและท้องถิ่น","subitems":[]},{"title":"1.2 ความรู้เรื่องสิทธิและเสรีภาพขั้นพื้นฐาน","detail":"ความเข้าใจในสิทธิเสรีภาพของตนเองและผู้อื่น และความรู้ความเข้าใจเกี่ยวกับผลกระทบที่จะเกิดขึ้นต่อเนื่องจากการกระทำของตนเองที่มีต่อผู้อื่น","subitems":[]},{"title":"1.3 ความรู้เกี่ยวกับข้อมูลข่าวสารและสถาบันหลัก","detail":"ความเข้าใจในข้อมูลข่าวสาร เหตุการณ์ หรือสถานการณ์รอบตัวที่เกี่ยวข้องกับตนเอง ครอบครัว โรงเรียน และชุมชน รวมถึงความรู้และความเคารพต่อสถาบันหลักของชาติในฐานะพลเมืองในระบอบประชาธิปไตยอันมีพระมหากษัตริย์ทรงเป็นประมุข","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"กระบวนการปฏิบัติและทักษะทางสังคมที่เด็กประถมต้องแสดงออก มี 3 กลุ่มสำคัญครับ:","items":[{"title":"2.1 ทักษะการปฏิบัติตนตามบทบาทหน้าที่และการควบคุมตนเอง (Responsibility & Self-Regulation)","detail":"","subitems":["ทักษะการรับผิดชอบและปฏิบัติตนตามคำแนะนำและบทบาทหน้าที่อย่างเหมาะสมในฐานะสมาชิกของครอบครัว ชั้นเรียน และโรงเรียน","ทักษะการกำกับและควบคุมตนเอง รวมถึงความสามารถในการยับยั้งชั่งใจและรู้จักปฏิเสธ","ทักษะการใช้ของส่วนรวมอย่างระมัดระวัง"]},{"title":"2.2 ทักษะการมีส่วนร่วมและการติดตามข้อมูลข่าวสาร (Participation & Media Monitoring)","detail":"","subitems":["ทักษะการเข้าร่วมช่วยเหลือและร่วมเป็นอาสาสมัครในกิจกรรมเพื่อส่วนรวม กิจกรรมสาธารณประโยชน์ระดับชั้นเรียน โรงเรียน หรือชุมชนที่เหมาะสมตามวัย","ทักษะการติดตามและตรวจสอบข้อมูลข่าวสาร เหตุการณ์ ปัญหาที่เกี่ยวข้องกับตัวเอง โรงเรียน และชุมชน"]},{"title":"2.3 ทักษะการแก้ปัญหาและการจัดการความขัดแย้ง (Conflict Resolution)","detail":"","subitems":["ทักษะการแจ้งผู้เกี่ยวข้อง (ครู/ผู้ใหญ่) เมื่อพบปัญหาหรือความขัดแย้งในชั้นเรียนหรือโรงเรียน","ทักษะการหาทางออกร่วมกันกับเพื่อนและครู เพื่อแก้ไขปัญหาความขัดแย้งในชั้นเรียนหรือโรงเรียนอย่างมีเหตุผล"]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"ค่านิยมประชาธิปไตยและจิตสำนึกความเป็นพลเมืองที่ต้องปลูกฝังประกอบด้วย:","items":[{"title":"3.1 การเคารพในสิทธิและเห็นอกเห็นใจ","detail":"ู้อื่น (Respect & Empathy): การมีจิตใจที่เคารพในสิทธิเสรีภาพของผู้อื่น มีความเห็นอกเห็นใจ ให้เกียรติ ช่วยเหลือ และแบ่งปันกับผู้อื่นเมื่อได้รับการร้องขอหรือเมื่อเห็นว่าต้องการความช่วยเหลือ","subitems":[]},{"title":"3.2 การเปิดรับความหลากหลายและปราศจากอคติ (Inclusivity & Anti-Bullying)","detail":"การยอมรับในความแตกต่างหลากหลายของบุคคลใกล้ตัว การอดทนอดกลั้นต่อความคิดเห็นและการแสดงออกที่แตกต่าง และมีความตั้งใจที่จะไม่กลั่นแกล้งเพื่อน (Bullying) ทั้งทางร่างกายและวาจา","subitems":[]},{"title":"3.3 การมีจิตสาธารณะและความรับ","detail":"ิดชอบต่อสังคม (Public Mindedness): การมีอิสระที่จะคิดและแสดงออกอย่างรับผิดชอบโดยไม่ทำให้ผู้อื่นเดือดร้อน และมีความมุ่งมั่นตั้งใจที่จะร่วมสร้างแนวทางการแก้ปัญหาหรือสร้างการเปลี่ยนแปลงเชิงบวกอย่างง่ายในบริบทโรงเรียนของตนเอง ________________","subitems":[]}]}]},{"id":"tc","name":"สมรรถนะการรวมพลังทำงานเป็นทีม (Teamwork and Collaboration: TC)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"นักเรียนระดับประถมศึกษาจะต้องมีความรู้พื้นฐานเกี่ยวกับการทำงานร่วมกันและเป้าหมาย ดังนี้:","items":[{"title":"1.1 ความรู้เกี่ยวกับบทบาท หน้าที่ และเป้าหมายของทีม","detail":"ความเข้าใจและรับรู้ว่าตนเองเป็นส่วนหนึ่งของทีมที่ต้องทำงานร่วมกันให้สำเร็จ รู้และเข้าใจในบทบาท หน้าที่ที่แตกต่างกันของตนเองและสมาชิกคนอื่น ๆ ในทีม ตลอดจนรับรู้และเข้าใจในเป้าหมายและข้อตกลงร่วมกันของทีม","subitems":[]},{"title":"1.2 ความรู้เกี่ยวกับกฎ กติกา และขั้นตอนการทำงาน","detail":"ความเข้าใจในกฎ กติกา ข้อตกลง และลำดับขั้นตอนการทำงานทั้งของตนเองและของทีมเพื่อให้งานบรรลุผลสำเร็จตามเป้าหมายและเวลาที่กำหนด","subitems":[]},{"title":"1.3 ความรู้เกี่ยวกับจุดเด่นและการใช้ทรัพยากร","detail":"ความรู้และสามารถระบุจุดเด่นหรือความสามารถเฉพาะตัวของตนเองในการทำงานตามหน้าที่ได้ รวมถึงความรู้ในการเลือกใช้และจัดระเบียบสิ่งของเครื่องใช้ส่วนตัวและส่วนรวมอย่างรู้คุณค่า","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"กระบวนการปฏิบัติและทักษะการทำงานร่วมกันที่เด็กประถมต้องแสดงออก แบ่งเป็น 3 กลุ่มพฤติกรรมบ่งชี้หลักครับ:","items":[{"title":"2.1 ทักษะกระบวนการทำงานแบบร่วมมือรวมพลังอย่างเป็นระบบ (Collaborative Work Process)","detail":"","subitems":["ทักษะการทำงานและทำกิจกรรมต่าง ๆ อย่างเป็นลำดับขั้นตอน ปฏิบัติงานตามภาระงานที่ได้รับมอบหมายจนสำเร็จตามเวลา","ทักษะการจัดระบบความคิดก่อนลงมือทำงานอย่างเป็นลำดับขั้น","ทักษะการมีส่วนร่วมในการตัดสินใจ การกำหนดเป้าหมาย และการสร้างข้อตกลงการทำงานร่วมกันของทีม"]},{"title":"2.2 ทักษะการสร้างความสัมพันธ์และการสื่อสารในทีม (Relationship & Communication)","detail":"","subitems":["ทักษะทางสังคมขั้นพื้นฐาน เช่น การแนะนำตนเอง การทักทาย พูดคุยทำความรู้จัก และบอกสิ่งที่ตนเองสามารถช่วยเพื่อนในทีมได้","ทักษะการพูดหรือแสดงออกต่อผู้อื่นด้วยความเป็นมิตรและเป็นเชิงบวก","ทักษะการรับฟัง แลกเปลี่ยน และแสดงความคิดเห็นเพื่อหาทางเลือกร่วมกับทีม"]},{"title":"2.3 ทักษะการสนับสนุนและการจัดการความขัดแย้ง (Support & Conflict Management)","detail":"","subitems":["ทักษะการช่วยเหลือและสนับสนุนเพื่อนในทีมให้ทำงานบรรลุเป้าหมาย","ทักษะการรับรู้ความรู้สึกของตนเองและผู้อื่น ตลอดจนแสดงพฤติกรรมเชิงบวกเมื่อเกิดความขัดแย้งอย่างเหมาะสมตามคำแนะนำ (เช่น การขอโทษ การขอบคุณ การให้อภัย ไม่ใช้ความรุนแรง และไม่มุ่งเอาชนะ)"]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"ทัศนคติและคุณลักษณะภายในที่สนับสนุนการทำงานเป็นทีม ประกอบด้วย:","items":[{"title":"3.1 ความรักในการทำงานและสปิริตของทีม (Work Commitment & Team Spirit)","detail":"การมีความมุ่งมั่น มั่นใจ และรักในการทำงาน มีความรับผิดชอบบทบาทหน้าที่ของตนเองอย่างเต็มความสามารถ และพร้อมสนับสนุนรับผิดชอบต่อผลการตัดสินใจร่วมกันของทีม","subitems":[]},{"title":"3.2 ความเป็นมิตรและการใส่ใจ","detail":"ู้อื่น (Empathy & Friendliness): การแสดงออกถึงความสนใจ ใส่ใจ ห่วงใย และเข้าใจต่อเพื่อนในทีมด้วยความเป็นมิตร","subitems":[]},{"title":"3.3 การยอมรับความแตกต่างหลากหลาย (Acceptance of Diversity)","detail":"การเข้าใจและยอมรับในความสามารถที่แตกต่างกันของสมาชิกแต่ละคนในทีม ________________","subitems":[]}]}]},{"id":"cm","name":"สมรรถนะการสื่อสาร (Communication: CM)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"นักเรียนระดับประถมศึกษาจะต้องมีความรู้พื้นฐานเกี่ยวกับการสื่อสารและสื่อ ดังนี้:","items":[{"title":"1.1 ความรู้เกี่ยวกับประเภทและคุณลักษณะของสื่อ","detail":"ความรู้และทำความเข้าใจเกี่ยวกับประเภทของสื่อใกล้ตัวและสื่อที่หลากหลายขึ้น ตลอดจนความเข้าใจในประโยชน์และโทษของสื่อที่มีต่อตนเองทั้งในระยะสั้น","subitems":[]},{"title":"1.2 ความรู้เกี่ยวกับความแตกต่างทางกายภาพและบริบท","detail":"ความเข้าใจเกี่ยวกับความแตกต่างเชิงกายภาพ (เช่น เพศ วัย) ระหว่างตนเองกับบุคคลใกล้ตัวที่ส่งผลต่อการสื่อสาร รวมถึงความรู้เรื่องความสอดคล้องเหมาะสมของสื่อกับบุคคลและกาลเทศะ","subitems":[]},{"title":"1.3 ความรู้เกี่ยวกับช่องทางและสาร","detail":"ความเข้าใจในนัยตรงของสาร ข้อมูล และความรู้สึกที่มีต่อสารในสถานการณ์ใกล้ตัว รวมถึงรู้วิธีการเข้าถึงสื่อในรูปแบบที่หลากหลาย","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"กระบวนการปฏิบัติและทักษะการรับ-ส่งสารที่เด็กประถมต้องแสดงออก แบ่งเป็น 3 กลุ่มหลักครับ:","items":[{"title":"2.1 ทักษะการรับสารและการถอดรหัส (Reception & Decoding Skills)","detail":"","subitems":["ทักษะการใช้ประสาทสัมผัสในการรับสารที่อยู่ใกล้ตัวอย่างตั้งใจ","ทักษะการฟังเสียง อ่านเรื่อง และดูภาพเหตุการณ์ในสถานการณ์ใกล้ตัว แล้วสามารถตอบคำถาม จับประเด็นสำคัญ หรือระบุวัตถุประสงค์ของผู้ส่งสารแบบง่าย ๆ ได้","ทักษะการตีความและอธิบายความรู้สึกของตนเองที่เกิดขึ้นจากการรับสารประเภทต่าง ๆ ที่มีความซับซ้อนหรือมีอารมณ์ที่หลากหลายมากขึ้น"]},{"title":"2.2 ทักษะการส่งสารและการ","detail":"ลิตสื่อ (Transmission & Media Production):","subitems":["ทักษะการสื่อสารเรื่องราวและข้อมูลใกล้ตัวผ่านคำพูด ภาษา ภาพ เสียง สัญลักษณ์ ท่าทาง การเคลื่อนไหวร่างกาย หรือการแสดงออกทางศิลปะอย่างง่าย","ทักษะการเลือกและผลิตสื่อให้เหมาะสมกับบุคคลใกล้ตัวและกาลเทศะที่ต้องการสื่อสารด้วย"]},{"title":"2.3 ทักษะปฏิสัมพันธ์และการแลกเปลี่ยน (Interaction Skills)","detail":"","subitems":["ทักษะการแลกเปลี่ยนประสบการณ์และสื่อสารกับบุคคลใกล้ตัวเกี่ยวกับสถานการณ์ใกล้ตัวที่แตกต่างจากตนเอง"]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"ทัศนคติ ค่านิยม และจริยธรรมในการสื่อสารที่ต้องปลูกฝังในระดับประถม ประกอบด้วย:","items":[{"title":"3.1 ความตั้งใจและความใส่ใจในการสื่อสาร","detail":"การมีความตั้งใจและใส่ใจในการใช้ประสาทสัมผัสเพื่อรับและส่งสารอย่างมีความรับผิดชอบต่อตนเอง","subitems":[]},{"title":"3.2 ความอดทนอดกลั้นต่อความแตกต่าง","detail":"การมีความอดทนในการรับสาร แลกเปลี่ยนประสบการณ์ และตระหนักถึงความแตกต่างระหว่างตนเองกับบุคคลใกล้ตัวที่ส่งผลต่อการสื่อสาร","subitems":[]},{"title":"3.3 ความตระหนักรู้ใน","detail":"ลกระทบของสื่อ: การตระหนักรู้และคำนึงถึงประโยชน์ โทษ หรือผลกระทบของการสื่อสารและการใช้สื่อที่มีต่อตนเอง ________________","subitems":[]}]}]},{"id":"hot","name":"สมรรถนะการคิดขั้นสูง (Higher Order Thinking: HOT)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"นักเรียนระดับประถมศึกษาจะต้องมีความรู้และพื้นฐานความคิดเพื่อใช้ในการประมวลผล ดังนี้:","items":[{"title":"1.1 ความรู้เกี่ยวกับปัญหาและองค์ประกอบของสถานการณ์","detail":"ความเข้าใจเกี่ยวกับลักษณะขององค์ประกอบที่เกี่ยวข้องกับสถานการณ์หรือปรากฏการณ์ที่สามารถสังเกตได้อย่างชัดเจนรอบตัว","subitems":[]},{"title":"1.2 ความรู้เกี่ยวกับความสัมพันธ์เชิงระบบอย่างง่าย","detail":"ความเข้าใจในแบบรูป (Pattern) และความสัมพันธ์ของสิ่งที่เกี่ยวข้องกับสถานการณ์หรือปรากฏการณ์นั้น ๆ ในชีวิตประจำวัน","subitems":[]},{"title":"1.3 ความรู้เกี่ยวกับแหล่งข้อมูลและวิธีการแก้ไขปัญหา","detail":"ความรู้เกี่ยวกับการจัดหมวดหมู่ข้อมูล ตัวแปรที่เกี่ยวข้อง รวมถึงความรู้เกี่ยวกับข้อดี-ข้อเสีย หรือประโยชน์และโทษของทางเลือกในการตัดสินใจ","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"กระบวนการปฏิบัติและทักษะการคิดที่เด็กประถมต้องแสดงออก แบ่งตามองค์ประกอบย่อยได้ 4 กลุ่มหลักครับ:","items":[{"title":"2.1 ทักษะการคิดอย่างมีวิจารณญาณ (Critical Thinking Skills)","detail":"","subitems":["ทักษะการสรุปความเข้าใจของตนเอง และแสดงความคิดเห็นอย่างมีเหตุผลจากการฟังหรืออ่านข้อมูลเรื่องราวต่าง ๆ","ทักษะการวิเคราะห์เพื่อประเมินความเหมาะสมและความถูกต้องของข้อมูลก่อนนำมาลงข้อสรุป","ทักษะการอธิบายเหตุผลและความเหมาะสมในการตัดสินใจเลือกทางใดทางหนึ่ง โดยสามารถระบุหลักฐานเชิงประจักษ์มาสนับสนุนความคิดได้อย่างน้อยหนึ่งแหล่งข้อมูล"]},{"title":"2.2 ทักษะการคิดเชิงระบบ (System Thinking Skills)","detail":"","subitems":["ทักษะการอธิบายและเชื่อมโยงความสัมพันธ์ระหว่างองค์ประกอบต่าง ๆ ที่เกี่ยวข้องกับระบบหรือสถานการณ์ผ่านการพูด เขียน วาดภาพ แผนภาพ แผนผัง หรือการเคลื่อนไหวร่างกาย","ทักษะการรวบรวมปัจจัย จัดหมวดหมู่ หรือกำหนดตัวแปรที่เกี่ยวข้องกับระบบอย่างง่าย"]},{"title":"2.3 ทักษะการคิดสร้างสรรค์ (Creative Thinking Skills)","detail":"","subitems":["ทักษะการบอกเล่าความคิด จินตนาการ หรือความต้องการของตนเองที่แปลกใหม่ไปจากสิ่งรอบตัวได้อย่างคล่องแคล่ว หลากหลาย และรวดเร็วในเวลาที่กำหนด","ทักษะการดัดแปลง ต่อยอด หรือผสมผสานความคิดเดิมสิ่งที่มีอยู่ หรือนำสิ่งอื่นมาทดแทนสิ่งที่ขาดเพื่อพัฒนาชิ้นงาน ชิ้นงานจำลอง หรือวิธีการอย่างง่าย"]},{"title":"2.4 ทักษะการคิดแก้ปัญหา (Problem Solving Thinking Skills)","detail":"","subitems":["ทักษะการตั้งคำถาม สำรวจ วางแผน และดำเนินการสำรวจตรวจสอบเลือกวิธีการเก็บรวบรวมข้อมูลเพื่อระบุสาเหตุของปัญหา","ทักษะการออกแบบวิธีแก้ปัญหาที่มีความเป็นไปได้จริงในทางปฏิบัติ ลงมือแก้ปัญหาด้วยตนเอง เก็บข้อมูล และประเมินตรวจสอบผลจนปัญหานั้นได้รับการแก้ไข"]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"คุณลักษณะและบรรทัดฐานภายในที่ควบคุมกระบวนการคิดของเด็กประถม ประกอบด้วย:","items":[{"title":"3.1 ความเป็นอิสระและกล้าคิดนอกกรอบ (Originality & Flexibility)","detail":"การมีความพร้อมในการคิดและเสนอความคิด/จินตนาการของตนเองอย่างเป็นอิสระ แปลกใหม่ และไม่ซ้ำใคร","subitems":[]},{"title":"3.2 การยึดมั่นในเหตุ","detail":"ลและหลักฐาน (Respect for Reason & Evidence): การตระหนักถึงความสำคัญของการตัดสินใจและลงข้อสรุปโดยอิงหลักฐานเชิงประจักษ์และความสมเหตุสมผล","subitems":[]},{"title":"3.3 ความใส่ใจรายละเอียดและประโยชน์ส่วนรวม (Elaboration & Responsibility)","detail":"การคำนึงถึงความละเอียดลออ ความคงทน ผู้เล่น/ผู้ใช้งาน วิธีการเล่น และความต้องการจำเป็นในการตอบสนองสภาพปัญหาในบริบท ________________","subitems":[]}]}]},{"id":"sm","name":"สมรรถนะการจัดการตนเอง (Self-Management: SM)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"นักเรียนระดับประถมศึกษาจะต้องมีความรู้และเข้าใจในตนเองและสภาวะรอบตัว ดังนี้:","items":[{"title":"1.1 ความรู้และมโนทัศน์เกี่ยวกับตนเอง (Self-Concept)","detail":"ความรู้และความเข้าใจเกี่ยวกับความชอบ ความสนใจ เพศสภาพ รวมถึงความสามารถและจุดเด่นของตนเองและเพื่อน","subitems":[]},{"title":"1.2 ความรู้เรื่องอารมณ์ สภาวะจิต และสถานการณ์เสี่ยง","detail":"ความรู้และการตระหนักรู้เกี่ยวกับชื่อเรียกของอารมณ์และความรู้สึกพื้นฐานของตนเองทั้งทางบวกและทางลบ ความเข้าใจเกี่ยวกับสถานการณ์หรือสาเหตุที่ทำให้เกิดอารมณ์ความรู้สึกเหล่านั้น ตลอดจนระดับความรุนแรงของอารมณ์","subitems":[]},{"title":"1.3 ความรู้เกี่ยวกับระเบียบและทางเลือกในชีวิตประจำวัน","detail":"ความเข้าใจในข้อตกลงของสังคม บรรทัดฐานทางสังคม ความถูก-ผิดในการปฏิบัติตน และความรู้เกี่ยวกับผลกระทบของทางเลือกในการตัดสินใจที่จะเกิดขึ้นในแง่บวกและแง่ลบต่อตนเองและผู้อื่น","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"กระบวนการปฏิบัติและทักษะการกำกับตนเองที่เด็กประถมต้องแสดงออก แบ่งตามองค์ประกอบย่อยได้ 4 กลุ่มหลักครับ:","items":[{"title":"2.1 ทักษะการพึ่งพาและกำกับตนเองในชีวิตประจำวัน (Self-Regulation)","detail":"","subitems":["ทักษะการทำกิจวัตรประจำวัน ทั้งการเรียน การเล่น การกิน การช่วยทำงาน การพักผ่อน และการใช้เงินอย่างพอดี","ทักษะการควบคุมตนเองในการปฏิบัติกิจวัตรประจำวันอย่างสม่ำเสมอภายใต้การดูแลและติดตามของผู้อื่น"]},{"title":"2.2 ทักษะการจัดการอารมณ์และความเครียด (Emotional Management)","detail":"","subitems":["ทักษะการแสดงออกถึงการควบคุมและจัดการกับอารมณ์และความรู้สึกพื้นฐานที่เกิดขึ้น","ทักษะการสื่อสารเพื่อขอความช่วยเหลือจากผู้อื่นในการจัดการความเครียดหรืออารมณ์ทางลบ"]},{"title":"2.3 ทักษะการจัดการปัญหาและตัดสินใจ (Problem Solving & Decision Making)","detail":"","subitems":["ทักษะการเลือกกิจกรรมที่เหมาะสมกับตนเอง และการตัดสินใจเกี่ยวกับกิจวัตรประจำวันโดยใช้ทางเลือกและรับผิดชอบในผลที่เกิดขึ้น","ทักษะการระบุสถานการณ์ที่เป็นปัญหา สาเหตุของปัญหา และรับรู้ได้ถึงแรงกดดันจากเพื่อนที่มีต่อการตัดสินใจของตนเอง"]},{"title":"2.4 ทักษะการเ","detail":"ชิญหน้าและอดทนต่อปัญหา (Resilience Skills):","subitems":["ทักษะการแสดงความอดทนต่อปัญหาที่เกิดขึ้นในการเรียนและการดำเนินชีวิตประจำวัน พร้อมเผชิญและยอมรับปัญหาที่เกิดขึ้นเพื่อกลับสู่สภาวะปกติ"]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"คุณลักษณะภายในและจิตสำนึกในการเห็นคุณค่าตนเองที่เด็กประถมต้องมี ประกอบด้วย:","items":[{"title":"3.1 การเห็นคุณค่าและความภาคภูมิใจในตนเอง (Self-Esteem)","detail":"การรู้จัก รัก และภาคภูมิใจในความสามารถและลักษณะประจำตัวของตนเอง","subitems":[]},{"title":"3.2 การยอมรับและความเคารพในความหลากหลาย (Respect for Diversity)","detail":"การยอมรับในความแตกต่างระหว่างบุคคล ทั้งในด้านความชอบ ความสนใจ และเพศวิถีของผู้อื่น","subitems":[]},{"title":"3.3 ความรับ","detail":"ิดชอบต่อตนเองและตระหนักรู้ผิดชอบชั่วดี (Responsibility & Integrity): การมีจิตสำนึกในการแยกแยะสิ่งถูก-ผิด ตระหนักรู้ผิดชอบชั่วดี และมีความตั้งใจที่จะหลีกเลี่ยงการนำพาตัวเองเข้าไปสู่ภาวะเสี่ยงตามคำแนะนำ ________________ การวิเคราะห์ KSA จำแนกตามสมรรถนะ 6 ด้าน","subitems":[]}]}]}]},{"name":"ระดับชั้นมัธยมศึกษา","competencies":[{"id":"slns","name":"สมรรถนะการอยู่ร่วมกับธรรมชาติ และวิทยาการอย่างยั่งยืน (Sustainable Coexistence with Nature and Science: SLNS)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"","items":[{"title":"ความรู้เชิงระบบเกี่ยวกับปรากฏการณ์ที่ซับซ้อนและจุดวิกฤตของโลก","detail":"ความเข้าใจในหลักการ ทฤษฎี กฎ ปัจจัยแทรกซ้อน และความสัมพันธ์เชิงเหตุและผลที่เป็นจุดวิกฤตซึ่งมีผลต่อความอยู่รอดของมนุษย์และโลกจากสถานการณ์ในระบบธรรมชาติ","subitems":[]},{"title":"ความรู้เท่าทันเทคโนโลยีและกฎหมายดิจิทัลขั้นสูง","detail":"ความเข้าใจในการเปลี่ยนแปลงของเทคโนโลยีสมัยใหม่ การใช้เทคโนโลยีดิจิทัลตามกฎหมายที่เกี่ยวข้องและมีจริยธรรม เข้าใจสิทธิของตนเองและเคารพสิทธิของผู้อื่นบนโลกไซเบอร์","subitems":[]},{"title":"ความรู้ด้านข้อมูลขั้นสูงและการใช้โมเดล","detail":"ความเข้าใจในเอกสารงานวิจัย หลักการ หรือทฤษฎีที่เกี่ยวข้อง เพื่อนำมาบูรณาการความรู้หลากหลายสาขาวิชา และเข้าใจโครงสร้างความคิดหรือโมเดลในการวิเคราะห์ข้อมูล","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"","items":[{"title":"ทักษะการสืบเสาะและวิเคราะห์ข้อมูลขั้นสูง (Advanced Inquiry & Data Analytics)","detail":"ทักษะการตั้งคำถามและสมมติฐานต่อปรากฏการณ์ที่ซับซ้อน ออกแบบวิธีการรวบรวมข้อมูลอย่างมีประสิทธิภาพและสร้างสรรค์ ตรวจสอบ ยืนยันความถูกต้องของข้อสรุป และเลือกใช้โมเดลในการวิเคราะห์ข้อมูลขั้นสูง","subitems":[]},{"title":"ทักษะการแก้ปัญหาเชิงระบบและการสร้างนวัตกรรม (Systemic Problem Solving & Innovation)","detail":"ทักษะการวิเคราะห์ปัญหาระบบธรรมชาติทั้งภาพรวมและภาพย่อย สามารถทำนายผลลัพธ์ของการแทรกแซงระบบ และบูรณาการศาสตร์ต่าง ๆ เพื่อสร้างนวัตกรรมหรือเครื่องมือที่มีความแม่นยำในการแก้ปัญหาสิ่งแวดล้อม","subitems":[]},{"title":"ทักษะการประยุกต์ใช้เทคโนโลยีเพื่อการแข่งขันและอาชีพ (Strategic Tech Application)","detail":"ทักษะการเขียนโปรแกรมสร้างแอปพลิเคชัน ประยุกต์ใช้เทคโนโลยีร่วมกับแนวคิดเชิงคำนวณเพื่อส่งเสริมการสร้างอาชีพ เพิ่มมูลค่าผลผลิต และสร้างโอกาสในการแข่งขันระดับประเทศหรือระดับโลก","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"","items":[{"title":"ความมุ่งมั่น อดทน และเด็ดเดี่ยวในการหาความจริง (Scientific Integrity)","detail":"มีความแน่วแน่ ไม่ย่อท้อ ยินดีเปลี่ยนแปลงข้อสรุปหรือสมมติฐานของตนเมื่อมีหลักฐานที่น่าเชื่อถือเพียงพอ และไม่แอบอ้างผลงานของผู้อื่นมาเป็นของตน","subitems":[]},{"title":"จิตสำนึกปกป้องสิ่งแวดล้อมและความรับ","detail":"ิดชอบต่อโลก (Global Sustainability Consciousness): การเห็นคุณค่าของระบบธรรมชาติ ปรับตัวให้อยู่ร่วมกันได้อย่างสมดุล และมีบทบาทนำในการสร้างจิตสำนึกของคนในชุมชนเพื่อปกป้องหรือฟื้นฟูธรรมชาติอย่างยั่งยืน","subitems":[]}]}]},{"id":"ac","name":"สมรรถนะการเป็นพลเมืองที่เข้มแข็ง (Active Citizen: AC)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"","items":[{"title":"ความรู้ด้านโครงสร้างสังคม นโยบาย และประเด็นโลก","detail":"ความเข้าใจในสถานการณ์บ้านเมือง นโยบายภาครัฐ การเคลื่อนไหวทางสังคมและการเมือง การเปลี่ยนแปลงทางสังคม วัฒนธรรม และเศรษฐกิจ ทั้งในระดับท้องถิ่น ภูมิภาค และประชาคมโลก","subitems":[]},{"title":"ความรู้ด้านหลักสิทธิมนุษยชนและความเท่าเทียม","detail":"ความเข้าใจและยึดมั่นในหลักสิทธิ เสรีภาพ ความเสมอภาค และกฎหมายอย่างลึกซึ้ง รวมถึงความเข้าใจเรื่องความเท่าเทียมและความเป็นธรรมในสังคม","subitems":[]},{"title":"ความรู้เท่าทันสื่อและการประเมินสารในระดับมหภาค","detail":"ความเข้าใจในการติดตามและประเมินความถูกต้อง น่าเชื่อถือของข้อมูลข่าวสารบนโลกจริงและโลกไซเบอร์ เพื่อคัดกรองข่าวลวง (Fake News) หรือเนื้อหาออนไลน์ที่มีความเสี่ยง","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"","items":[{"title":"ทักษะการสร้างการเปลี่ยนแปลงเชิงบวกด้วยวิถีประชาธิปไตย (Civic Action & Change-making)","detail":"ทักษะการริเริ่มและสร้างการเปลี่ยนแปลงเชิงบวกเกี่ยวกับประเด็นปัญหาของท้องถิ่น ภูมิภาค และประชาคมโลก โดยคำนึงถึงความเท่าเทียมเป็นธรรมและแนวทางที่ไม่เกิดความรุนแรง","subitems":[]},{"title":"ทักษะการแก้ปัญหาความขัดแย้งด้วยสันติวิธี (Conflict Resolution)","detail":"ทักษะการกระตือรือร้นในการหาทางออกร่วมกันกับผู้เกี่ยวข้อง ผ่านกระบวนการปรึกษาหารือตามวิถีประชาธิปไตยและการใช้สันติวิธี","subitems":[]},{"title":"ทักษะการมีส่วนร่วมทางสังคมและการสื่อสารสาธารณะ (Public Communication)","detail":"ทักษะการริเริ่มมีส่วนร่วมทางสังคมด้วยจิตสาธารณะ และความสามารถในการสื่อสาร ขับเคลื่อน หรือแสดงออกผ่านช่องทางสาธารณะระดับภูมิภาคและประชาคมโลก","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"","items":[{"title":"ความยึดมั่นในคุณค่าประชาธิปไตยและความเท่าเทียม (Democratic Values)","detail":"ความเชื่อมั่นในสังคมที่เท่าเทียมเป็นธรรม ค่านิยมประชาธิปไตย และการยึดมั่นปกป้องในหลักสิทธิเสรีภาพและความเสมอภาค","subitems":[]},{"title":"ความเห็นอกเห็นใจในระดับสากลและปราศจากอคติ (Global Empathy & Non-Discrimination)","detail":"การมีความเห็นอกเห็นใจผู้อื่นทั้งในโลกจริงและโลกเสมือน (Digital Empathy) บนพื้นฐานของการพึ่งพาอาศัยกันโดยปราศจากอคติ และไม่เลือกปฏิบัติ","subitems":[]},{"title":"สำนึกสากลและจิตสาธารณะ (Global Mindedness & Public Mind)","detail":"การมีจิตสาธารณะและสำนึกสากลที่คำนึงถึงผลประโยชน์และผลกระทบที่จะเกิดขึ้นทั้งในระดับชุมชน สังคม และโลก","subitems":[]}]}]},{"id":"tc","name":"สมรรถนะการรวมพลังทำงานเป็นทีม (Teamwork and Collaboration: TC)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"","items":[{"title":"ความรู้เรื่องกระบวนการทำงานเชิงระบบและการบริหารจัดการ","detail":"ความเข้าใจในกระบวนการทำงานเป็นทีมอย่างเป็นองค์รวม ทั้งการวางแผน การดำเนินงานทั้งระบบ และการจัดการกระบวนการทำงานที่หลากหลายให้เหมาะสมกับสถานการณ์","subitems":[]},{"title":"ความรู้ด้านธรรมาภิบาลและการตรวจสอบได้","detail":"ความเข้าใจในหลักความโปร่งใส กระบวนการทำงานที่ตรวจสอบได้ และการร่วมรับผิดชอบต่อผลการตัดสินใจของทีม","subitems":[]},{"title":"ความรู้เรื่องมนุษยสัมพันธ์และการจัดการความขัดแย้ง","detail":"ความเข้าใจเกี่ยวกับความแตกต่างภายในทีม ทักษะการป้องกันและการจัดการความขัดแย้งในสถานการณ์ที่ซับซ้อนและยุ่งยาก","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"","items":[{"title":"ทักษะภาวะ","detail":"ู้นำและการดึงศักยภาพทีม (Leadership & Potential Maximization): ทักษะการสร้างแรงบันดาลใจ ประสานความร่วมมือภายในและระหว่างทีม กระตุ้นส่งเสริมให้ทีมนำจุดเด่นของแต่ละคนมาใช้ในการขับเคลื่อนทีมให้บรรลุเป้าหมาย","subitems":[]},{"title":"ทักษะการคิดขั้นสูงเพื่อการตัดสินใจร่วมกัน (Collaborative Decision Making)","detail":"ทักษะการประยุกต์ใช้ทักษะการคิดขั้นสูงในการบริหารจัดการทีมในภาพรวม ประสานความคิดเห็นที่แตกต่าง และเลือกใช้วิธีการตัดสินใจเป็นทีมที่เหมาะสมโดยคำนึงถึงผลกระทบอย่างรอบด้าน","subitems":[]},{"title":"ทักษะการบริหารความสัมพันธ์และจัดการความขัดแย้ง (Relationship Management)","detail":"ทักษะการใช้วิ วิธีการที่เหมาะสมในการจัดการความขัดแย้งในสถานการณ์ที่ซับซ้อน ขจัดอคติและความกลัวเพื่อสร้างแนวทางใหม่ในการแก้ปัญหา","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"","items":[{"title":"ทัศนคติเชิงบวกต่อความหลากหลายและความเสมอภาค (Inclusivity & Equality)","detail":"การยอมรับและเห็นคุณค่าของทุกคนในทีมอย่างเท่าเทียมกัน ปฏิบัติต่อทุกคนโดยเสมอภาคโดยไม่เลือกปฏิบัติ และเห็นประโยชน์จากความแตกต่างทางความคิด","subitems":[]},{"title":"ความโปร่งใสและพร้อมรับ","detail":"ิดชอบร่วมกัน (Accountability): การมีความแน่วแน่ ไม่ย่อท้อในการขับเคลื่อนทีมด้วยความโปร่งใส และร่วมรับผิดรับชอบต่อผลการกระทำของตนเองและสมาชิกในทีม ________________","subitems":[]}]}]},{"id":"cm","name":"สมรรถนะการสื่อสาร (Communication: CM)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"","items":[{"title":"ความรู้ด้านกลยุทธ์และจริยธรรมการสื่อสารระดับมหภาค","detail":"ความเข้าใจในระบบ วางแผน และการออกแบบกลยุทธ์การสื่อสารเพื่อสร้างความเข้าใจ รวมถึงมารยาท จริยธรรม และกฎหมายที่เกี่ยวข้องกับการสื่อสารผ่านสื่อหลากหลายประเภท","subitems":[]},{"title":"ความรู้เชิงวิพากษ์และนัยแฝงของสาร","detail":"ความเข้าใจในโครงสร้างของสารที่มีความซับซ้อน มีนัยแฝง หรือเป็นไปตามอุดมการณ์ สามารถแยกแยะและเข้าใจการทำงานของสื่อที่ส่งผลกระทบต่อสังคมในเชิงลึก","subitems":[]},{"title":"ความรู้ด้านบริบทสังคม วัฒนธรรม และความต่าง","detail":"ความเข้าใจและตระหนักรู้ในความแตกต่างในทุกมิติ ทั้งด้านสังคม ศาสนา วัฒนธรรมที่หลากหลายในระดับชุมชน ชาติ และสากลที่ส่งผลต่อการตีความสาร","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"","items":[{"title":"ทักษะการรับสารเชิงวิพากษ์และการฟังอย่างลึกซึ้ง (Deep Listening & Media Criticism)","detail":"ทักษะการฟังแบบ Deep Listening อย่างมีสติในชีวิตประจำวัน ทักษะการสรุปประเด็น ตีความ วิเคราะห์ และวิพากษ์จุดเด่นจุดด้อย ประเมินคุณค่าของสารในมิติความจริง ความดี ความงาม","subitems":[]},{"title":"ทักษะการออกแบบและ","detail":"ลิตสื่ออย่างสร้างสรรค์และมีพลัง (Strategic Media Production): ทักษะการใช้กลยุทธ์และกลวิธีการสื่อสารที่หลากหลาย ผลิตสื่อที่ใช้เทคโนโลยีซับซ้อนได้อย่างมีศิลปะและมีพลังในการสร้างประโยชน์แก่สังคม","subitems":[]},{"title":"ทักษะการสื่อสารเพื่อสร้างความเข้าใจร่วมกัน (Empathetic & Constructive Communication)","detail":"ทักษะการเจรจาต่อรอง สื่อสารทางบวกกับบุคคลที่มีความต่างอย่างเห็นอกเห็นใจ (Empathy) เพื่อสร้างความเข้าใจและลดปัญหาความขัดแย้ง","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"","items":[{"title":"ความรับ","detail":"ิดชอบต่อสังคมในการสื่อสาร (Social Responsibility): การมีจิตสำนึกและพฤติกรรมทางกาย วาจา ใจ ที่สื่อสารด้วยความรับผิดชอบต่อสังคมและการสร้างสังคมที่พัฒนาอย่างยั่งยืน","subitems":[]},{"title":"การปราศจากอคติและเปิดใจกว้าง (Objectivity & Respect)","detail":"การรับและส่งสารผ่านสื่อที่หลากหลายรูปแบบโดยปราศจากอคติ พร้อมทั้งเคารพในความคิดเห็นที่แตกต่างของบุคคลในสังคม ________________","subitems":[]}]}]},{"id":"hot","name":"สมรรถนะการคิดขั้นสูง (Higher Order Thinking: HOT)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"","items":[{"title":"ความรู้เชิงลึกเกี่ยวกับระบบและแบบจำลองความคิด","detail":"ความเข้าใจในปัจจัย โครงสร้าง ความสัมพันธ์เชิงเหตุและผลที่เป็นแบบแผนของพฤติกรรมและองค์รวมขององค์ประกอบต่าง ๆ ในระบบที่ยากและซับซ้อน","subitems":[]},{"title":"ความรู้ด้านระเบียบวิธีวิจัยและข้อจำกัดของข้อมูล","detail":"ความเข้าใจในเอกสารและงานวิจัยที่เกี่ยวข้อง ขอบเขตการศึกษา ตัวแปรแทรกซ้อนที่อาจเกิดขึ้น พิจารณาข้อจำกัดของการวิเคราะห์และการตีความหมายข้อมูล","subitems":[]},{"title":"ความรู้ด้านหลักเกณฑ์สังคมและศีลธรรมในการประเมิน","detail":"ความเข้าใจในการเชื่อมโยงข้อมูลกับหลักกฎหมาย ศีลธรรม คุณธรรม ค่านิยม ความเชื่อ และบรรทัดฐานของสังคมและวัฒนธรรมเพื่อใช้กำกับการตัดสินใจ","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"","items":[{"title":"ทักษะการคิดอย่างมีวิจารณญาณเชิงประเมินและตรวจสอบ (Advanced Critical Thinking)","detail":"ทักษะการระบุข้อโต้แย้ง วิเคราะห์ ตีความ แปลความ สังเคราะห์ เพื่อประเมินความเหมาะสมและความเพียงพอรอบด้านของข้อมูล เปรียบเทียบแหล่งข้อมูลและข้อเท็จจริง และสามารถพิสูจน์ตรวจสอบข้อสรุปได้","subitems":[]},{"title":"ทักษะการคิดเชิงระบบและการใช้แบบจำลอง (Advanced System Thinking)","detail":"ทักษะการสร้างแบบจำลองความคิดเพื่ออธิบายแนวคิดในการออกแบบระบบหรือการแก้ปัญหา สามารถทำนายผลลัพธ์ที่เกิดขึ้นเมื่อมีปัจจัยอื่นเข้ามาในระบบ และประเมินปรับปรุงพัฒนาระบบจากมุมมองที่หลากหลาย","subitems":[]},{"title":"ทักษะการคิดสร้างสรรค์และพัฒนานวัตกรรมสาธารณะ (Creative Innovation)","detail":"ทักษะการคิดแจกแจงรายละเอียด ผสมผสานหลากหลายความคิดเพื่อพัฒนาชิ้นงาน วิธีการ หรือนวัตกรรมที่ยากและซับซ้อนด้วยความคิดที่แปลกใหม่ไม่ซ้ำใคร สื่อสารให้ผู้อื่นเข้าใจ และเผยแพร่ขยายผลสู่สาธารณะ","subitems":[]},{"title":"ทักษะการคิดแก้ปัญหาและการเขียนสะท้อนคิด (Problem Solving & Metacognition)","detail":"ทักษะการวางแผนแก้ปัญหาที่ยากซับซ้อนโดยครอบคลุมทุกมิติ ประเมินความเสี่ยง ดำเนินการจนได้ข้อสรุป และมีทักษะการเขียนสะท้อนความคิดเกี่ยวกับเนื้อหาและกระบวนการเรียนรู้เพื่อวางแผนพัฒนาตนเองและสังคมในอนาคต","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"","items":[{"title":"ความแน่วแน่ คุณธรรมกำกับการคิด และความรับ","detail":"ิดชอบต่อสังคม: การมีความมุ่งมั่น เด็ดเดี่ยว ไม่ย่อท้อในการคิดค้นแสวงหาความรู้และวิธีการใหม่ ๆ โดยมีคุณธรรมและค่านิยมสังคมเป็นสิ่งกำกับการตัดสินใจเพื่อส่งผลดีต่อสังคม ________________","subitems":[]}]}]},{"id":"sm","name":"สมรรถนะการจัดการตนเอง (Self-Management: SM)","groups":[{"label":"Knowledge","title":"๐“ ด้านความรู้ (Knowledge)","intro":"","items":[{"title":"ความรู้ด้านอัตลักษณ์และภาพอนาคตของตนเอง (Ideal Self)","detail":"ความเข้าใจในลักษณะนิสัย จุดแข็ง สิ่งท้าทาย ข้อจำกัด และแนวทางการพัฒนาตนเอง รวมถึงการมีภาพอนาคตของตนเองที่ต้องการพัฒนาไปให้ถึง","subitems":[]},{"title":"ความรู้ด้านกลไกทางอารมณ์และสุขภาวะทางจิต","detail":"ความเข้าใจและรู้เท่าทันว่าความคิด อารมณ์ และความเครียดมีผลต่อพฤติกรรมอย่างไร บรรทัดฐานขอบเขตของอารมณ์ และกลวิธีในการส่งเสริมสุขภาวะทางจิตของตน","subitems":[]},{"title":"ความรู้ด้านความปลอดภัยเชิงระบบและภาวะวิกฤต","detail":"ความเข้าใจในสถานการณ์ความเสี่ยงที่อาจเกิดขึ้น การจัดการสถานการณ์ที่เป็นสาเหตุของความเครียด รวมถึงความปลอดภัยทางออนไลน์และภัยพิบัติ","subitems":[]}]},{"label":"Skills","title":"๐ ๏ธ ด้านทักษะ (Skills)","intro":"","items":[{"title":"ทักษะการวางแ","detail":"นและการกำกับตนเองสู่เป้าหมายชีวิต (Self-Direction & Goal Setting): ทักษะการตั้งเป้าหมายและแนวทางการไปสู่เป้าหมายชีวิตและการเรียน การกำกับตนเองให้ลงมือทำตามแผน บริหารจัดการเวลา ทรัพยากร และสามารถสะท้อนความก้าวหน้า ปรับใช้เครื่องมือที่จำเป็นเพื่อเอาชนะอุปสรรค","subitems":[]},{"title":"ทักษะการจัดการอารมณ์และความเครียดขั้นสูง (Advanced Stress Management)","detail":"ทักษะการรู้ทัน จัดการ และแสดงออกถึงกลวิธีในการรับมือกับอารมณ์ความรู้สึกทางลบและความเครียดได้อย่างเหมาะสม มองเห็นประโยชน์จากความเครียดระดับเล็กน้อย และปรับกรอบความคิดเพื่อให้มีสุขภาวะที่ดี","subitems":[]},{"title":"ทักษะการตัดสินใจและการฟื้นคืนสู่สภาวะสมดุลด้วยตนเอง (Self-Resilience)","detail":"ทักษะการริเริ่มสร้างทางเลือกใหม่ที่หลากหลายในการแก้ปัญหาในภาวะวิกฤต ยอมรับข้อผิดพลาดว่าเป็นส่วนหนึ่งของการเรียนรู้ และสามารถใช้แนวทาง/วิธีการแก้ปัญหาของตนเองกลับสู่ภาวะสมดุลได้ด้วยตนเองเมื่อเผชิญความผิดหวัง","subitems":[]}]},{"label":"Attitudes","title":"โค๏ธ ด้านเฌตคติและชุณลักษณะ (Attitudes / Attributes)","intro":"","items":[{"title":"การมีกรอบความคิดแบบเติบโตและจุดยืนทางบวก (Growth Mindset & Self-Esteem)","detail":"มีความรู้สึกที่ดีเกี่ยวกับตนเอง มั่นใจ พร้อมเผชิญความท้าทาย ยอมรับคำวิจารณ์หรือความไม่รู้ของตนเอง และแสดงพฤติกรรมตามความเชื่อและจุดยืนทางบวกของตนเอง","subitems":[]},{"title":"ความเพียรพยายามและจิตสำนึกรับ","detail":"ิดชอบต่อผลการกระทำ: แสดงออกถึงความตั้งใจ รับผิดชอบ และเพียรพยายามที่จะทำตามเป้าหมายชีวิตของตนเอง มีความสุขกับชีวิตที่เป็นอยู่ และมีความรับผิดชอบต่อผลของการกระทำหรือทางเลือกของตนเอง","subitems":[]}]}]}]}]};
+      data.source = {
+        type: 'mock',
+        live: false,
+        refreshedAt: new Date().toISOString(),
+        documentId: '1FfY4IoxwDv37dL9-k7PwJu81pEuPJWXAVOpXE-Oib3w'
+      };
+      return data;
+    }
+  </script>
+</body>
+</html>
